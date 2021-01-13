@@ -23,7 +23,7 @@ public class Messages {
         CONFIG_RELOADED = color(String.format("&a%s has been reloaded.",main.getName()));
     }
 
-    public void showActionBarMessage(Player player, String message) {
+    public static void showActionBarMessage(Player player, String message) {
         player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(message));
     }
 
