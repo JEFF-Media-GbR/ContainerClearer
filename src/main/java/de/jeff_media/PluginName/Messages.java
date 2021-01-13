@@ -1,6 +1,9 @@
 package de.jeff_media.PluginName;
 
+import net.md_5.bungee.api.ChatMessageType;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.ChatColor;
+import org.bukkit.entity.Player;
 
 public class Messages {
 
@@ -18,6 +21,10 @@ public class Messages {
         TEST3 = load("test","&cThis is a test message.");
 
         CONFIG_RELOADED = color(String.format("&a%s has been reloaded.",main.getName()));
+    }
+
+    public void showActionBarMessage(Player player, String message) {
+        player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(message));
     }
 
     private String load(String path, String defaultMessage) {
