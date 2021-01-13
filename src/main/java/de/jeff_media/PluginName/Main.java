@@ -7,13 +7,14 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class Main extends JavaPlugin {
 
-    private PluginUpdateChecker updateChecker;
     private static final String SPIGOT_RESOURCE_ID = "123456789";
     private static final int BSTATS_ID = 9991;
     private static final String UPDATECHECKER_LINK_API = "https://api.spigotmc.org/legacy/update.php?resource="+SPIGOT_RESOURCE_ID;
     private static final String UPDATECHECKER_LINK_DOWNLOAD = "https://www.spigotmc.org/resources/"+SPIGOT_RESOURCE_ID;
     private static final String UPDATECHECKER_LINK_CHANGELOG = "https://www.spigotmc.org/resources/"+SPIGOT_RESOURCE_ID+"/updates";
     private static final String UPDATECHECKER_LINK_DONATE = "https://paypal.me/mfnalex";
+
+    private PluginUpdateChecker updateChecker;
 
     public Messages messages;
 
