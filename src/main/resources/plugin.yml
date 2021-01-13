@@ -1,9 +1,9 @@
 main: ${spigot.main}
 name: ${spigot.name}
 version: ${project.version}
-description: ${spigot.description}
+description: "${spigot.description}"
 prefix: ${spigot.prefix}
-website: ${spigot.website}
+website: "${spigot.website}"
 author: mfnalex
 database: false
 api-version: "1.13"
