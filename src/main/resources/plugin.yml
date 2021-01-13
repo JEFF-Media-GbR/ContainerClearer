@@ -11,6 +11,7 @@ load: POSTWORLD
 
 softdepend: []
 
-permissions: []
+permissions:
 
-commands: []
+commands:
+  pluginname:
