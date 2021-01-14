@@ -46,7 +46,7 @@ public class ConfigUpdater {
 
             String updatedLine = defaultLine;
 
-            if(lineContaintsIgnoredNode(defaultLine)) {
+            if(lineContainsIgnoredNode(defaultLine)) {
                 debug(logger,"Not updating this line: " + defaultLine);
             }
             else if(lineIsStringList(defaultLine)) {
@@ -97,7 +97,7 @@ public class ConfigUpdater {
         return false;
     }
 
-    private static boolean lineContaintsIgnoredNode(String line) {
+    private static boolean lineContainsIgnoredNode(String line) {
         for(String test : nodesIgnored) {
             if(line.startsWith(test+":")) {
                 return true;
@@ -144,13 +144,6 @@ public class ConfigUpdater {
         }
 
     }
-
-    private static void updateList(ArrayList<String> newConfig, String node, ArrayList<String> oldValues) {
-        newConfig.add(node+":");
-        for(String oldValue : oldValues) {
-            newConfig.add("- " + oldValue);
-        }
-     }
 
     private static void backupCurrentConfig(Main main) {
         File oldFile = new File(getFilePath(main,"config.yml"));
