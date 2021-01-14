@@ -9,10 +9,10 @@ import java.util.logging.Logger;
 
 public class ConfigUpdater {
 
-    private static final String[] nodesPrefixNeedingDoubleQuotes = {"message-"};
-    private static final String[] nodesPrefixNeedingSingleQuotes = {"test-"};
-    private static final String[] nodesStringLists = {"disabled-worlds"};
-    private static final String[] nodesIgnored = {"config-version", "plugin-version"};
+    private static final String[] LINES_NEEDING_DOUBLE_QUOTES = {"message-"};
+    private static final String[] LINES_NEEDING_SINGLE_QUOTES = {"test-"};
+    private static final String[] LINES_CONTAINING_STRING_LISTS = {"disabled-worlds:"};
+    private static final String[] LINES_IGNORED = {"config-version:", "plugin-version:"};
 
 
     private static final boolean debug = true;
@@ -75,12 +75,12 @@ public class ConfigUpdater {
     }
 
     private static String getQuotes(String line) {
-        for(String test : nodesPrefixNeedingDoubleQuotes) {
+        for(String test : LINES_NEEDING_DOUBLE_QUOTES) {
             if (line.startsWith(test)) {
                 return "\"";
             }
         }
-        for(String test : nodesPrefixNeedingSingleQuotes) {
+        for(String test : LINES_NEEDING_SINGLE_QUOTES) {
             if(line.startsWith(test)) {
                 return "'";
             }
@@ -89,8 +89,8 @@ public class ConfigUpdater {
     }
 
     private static boolean lineIsStringList(String line) {
-        for(String test : nodesStringLists) {
-            if(line.startsWith(test+":")) {
+        for(String test : LINES_CONTAINING_STRING_LISTS) {
+            if(line.startsWith(test)) {
                 return true;
             }
         }
@@ -98,8 +98,8 @@ public class ConfigUpdater {
     }
 
     private static boolean lineContainsIgnoredNode(String line) {
-        for(String test : nodesIgnored) {
-            if(line.startsWith(test+":")) {
+        for(String test : LINES_IGNORED) {
+            if(line.startsWith(test)) {
                 return true;
             }
         }
