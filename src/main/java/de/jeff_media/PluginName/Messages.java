@@ -11,7 +11,6 @@ public class Messages {
     public final String CONFIG_RELOADED;
 
     private final Main main;
-    private final String messagePrefix = "message-";
 
     public Messages(Main main) {
         this.main = main;
@@ -28,6 +27,7 @@ public class Messages {
     }
 
     private String load(String path, String defaultMessage) {
+        String messagePrefix = "message-";
         return ChatColor.translateAlternateColorCodes('&', main.getConfig().getString(messagePrefix + path,defaultMessage));
     }
 

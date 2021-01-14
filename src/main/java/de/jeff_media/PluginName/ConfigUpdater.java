@@ -9,15 +9,15 @@ import java.util.logging.Logger;
 
 public class ConfigUpdater {
 
-    private static String[] nodesPrefixNeedingDoubleQuotes = {"message-"};
-    private static String[] nodesPrefixNeedingSingleQuotes = {"test-"};
-    private static String[] nodesStringLists = {"disabled-worlds"};
-    private static String[] nodesIgnored = {"config-version", "plugin-version"};
+    private static final String[] nodesPrefixNeedingDoubleQuotes = {"message-"};
+    private static final String[] nodesPrefixNeedingSingleQuotes = {"test-"};
+    private static final String[] nodesStringLists = {"disabled-worlds"};
+    private static final String[] nodesIgnored = {"config-version", "plugin-version"};
 
 
     private static final boolean debug = true;
 
-    private static final void debug( Logger logger,String message) {
+    private static void debug(Logger logger, String message) {
         logger.warning(message);
     }
 
@@ -42,32 +42,32 @@ public class ConfigUpdater {
         Set<String> oldConfigNodes = main.getConfig().getKeys(false);
         ArrayList<String> newConfig = new ArrayList<>();
 
-        for(String line : getNewConfigAsArrayList(main)) {
+        for(String defaultLine : getNewConfigAsArrayList(main)) {
 
-            String newLine = line;
+            String updatedLine = defaultLine;
 
-            if(lineContaintsIgnoredNode(line)) {
-                debug(logger,"Not updating this line: " + line);
+            if(lineContaintsIgnoredNode(defaultLine)) {
+                debug(logger,"Not updating this line: " + defaultLine);
             }
-            else if(lineIsStringList(line)) {
-                newLine = null;
-                newConfig.add(line);
-                String node = newLine.split(":")[0];
+            else if(lineIsStringList(defaultLine)) {
+                updatedLine = null;
+                newConfig.add(defaultLine);
+                String node = defaultLine.split(":")[0];
                 for(String entry : main.getConfig().getStringList(node)) {
                     newConfig.add("- " + entry);
                 }
             }
             else {
                 for(String node : oldConfigNodes) {
-                    if (line.startsWith(node+":")) {
+                    if (defaultLine.startsWith(node+":")) {
                         String quotes = getQuotes(node);
-                        newLine = node + ": " + quotes + main.getConfig().get(node).toString() + quotes;
+                        updatedLine = node + ": " + quotes + main.getConfig().get(node).toString() + quotes;
                     }
                 }
             }
 
-            if(newLine != null) {
-                newConfig.add(newLine);
+            if(updatedLine != null) {
+                newConfig.add(updatedLine);
             }
         }
 
@@ -76,12 +76,12 @@ public class ConfigUpdater {
 
     private static String getQuotes(String line) {
         for(String test : nodesPrefixNeedingDoubleQuotes) {
-            if (line.equals(test)) {
+            if (line.startsWith(test)) {
                 return "\"";
             }
         }
         for(String test : nodesPrefixNeedingSingleQuotes) {
-            if(line.equals(test)) {
+            if(line.startsWith(test)) {
                 return "'";
             }
         }
