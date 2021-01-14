@@ -17,6 +17,8 @@
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>1.8</java.version>
+        <maven.build.timestamp.format>yyyyMMddHHmm</maven.build.timestamp.format>
+        <config.version>${maven.build.timestamp}</config.version>
     </properties>
 
     <build>

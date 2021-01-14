@@ -1,4 +1,21 @@
 ##########################
+##### End of Config  #####
+##########################
+
+# Following is a normal string list
+disabled-worlds:
+
+# This needs double quotes:
+message-test: "Double Quotes"
+
+# This needs single quotes:
+test-bla: 'Single quotes'
+
+# Normal stuff
+test123: 3
+testasd: d
+
+##########################
 #####   PluginName   #####
 ##########################
 
@@ -21,3 +38,14 @@ check-for-updates: true
 # When you set "check-for-updates" to true, you can define the amount
 # of hours between each update check.
 update-check-interval: 4
+
+##########################
+##### End of Config  #####
+##########################
+
+# Only enable this if you know what you are doing
+debug: false
+
+# NEVER CHANGE THE VALUES BELOW!
+plugin-version: ${project.version}
+config-version: ${config.version}

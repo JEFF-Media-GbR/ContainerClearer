@@ -27,6 +27,7 @@ public class Main extends JavaPlugin {
 
     public void reload() {
         createConfig();
+        ConfigUpdater.updateConfig(this);
         reloadConfig();
         initUpdateChecker();
 
