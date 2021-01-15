@@ -46,7 +46,10 @@ public class ConfigUpdater {
 
             String updatedLine = defaultLine;
 
-            if(lineContainsIgnoredNode(defaultLine)) {
+            if(defaultLine.startsWith("-") || defaultLine.startsWith(" -") || defaultLine.startsWith("  -")) {
+                debug(logger, "Not including default String list entry: "+defaultLine);
+            }
+            else if(lineContainsIgnoredNode(defaultLine)) {
                 debug(logger,"Not updating this line: " + defaultLine);
             }
             else if(lineIsStringList(defaultLine)) {
