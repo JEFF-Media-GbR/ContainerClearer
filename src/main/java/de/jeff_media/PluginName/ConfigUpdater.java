@@ -9,8 +9,8 @@ import java.util.logging.Logger;
 
 public class ConfigUpdater {
 
-    private static final String[] LINES_NEEDING_DOUBLE_QUOTES = {"message-"};
-    private static final String[] LINES_NEEDING_SINGLE_QUOTES = {"test-"};
+    private static final String[] NODES_NEEDING_DOUBLE_QUOTES = {"message-"};
+    private static final String[] NODES_NEEDING_SINGLE_QUOTES = {"test-"};
     private static final String[] LINES_CONTAINING_STRING_LISTS = {"disabled-worlds:"};
     private static final String[] LINES_IGNORED = {"config-version:", "plugin-version:"};
     private static final String[] LINES_CONTAINING_NEWLINES = {}; // TODO: ADD THIS
@@ -79,12 +79,12 @@ public class ConfigUpdater {
     }
 
     private static String getQuotes(String line) {
-        for(String test : LINES_NEEDING_DOUBLE_QUOTES) {
+        for(String test : NODES_NEEDING_DOUBLE_QUOTES) {
             if (line.startsWith(test)) {
                 return "\"";
             }
         }
-        for(String test : LINES_NEEDING_SINGLE_QUOTES) {
+        for(String test : NODES_NEEDING_SINGLE_QUOTES) {
             if(line.startsWith(test)) {
                 return "'";
             }
