@@ -13,6 +13,7 @@ public class ConfigUpdater {
     private static final String[] LINES_NEEDING_SINGLE_QUOTES = {"test-"};
     private static final String[] LINES_CONTAINING_STRING_LISTS = {"disabled-worlds:"};
     private static final String[] LINES_IGNORED = {"config-version:", "plugin-version:"};
+    private static final String[] LINES_CONTAINING_NEWLINES = {}; // TODO: ADD THIS
 
 
     private static final boolean debug = true;
