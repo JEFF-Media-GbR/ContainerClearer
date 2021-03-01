@@ -1,5 +1,6 @@
-package de.jeff_media.PluginName;
+package de.jeff_media.PluginName.config;
 
+import de.jeff_media.PluginName.Main;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.ChatColor;
@@ -7,17 +8,15 @@ import org.bukkit.entity.Player;
 
 public class Messages {
 
-    public final String TEST1, TEST2, TEST3;
+    public final String TEST1;
     public final String CONFIG_RELOADED;
 
     private final Main main;
 
-    public Messages(Main main) {
-        this.main = main;
+    public Messages() {
+        this.main = Main.getInstance();
 
         TEST1 = load("test","&aThis is a test message.");
-        TEST2 = load("test","&bThis is a test message.");
-        TEST3 = load("test","&cThis is a test message.");
 
         CONFIG_RELOADED = color(String.format("&a%s has been reloaded.",main.getName()));
     }

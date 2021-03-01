@@ -1,51 +1,44 @@
 package de.jeff_media.PluginName;
 
 import de.jeff_media.PluginName.commands.MainCommand;
+import de.jeff_media.PluginName.config.Config;
+import de.jeff_media.PluginName.config.ConfigUpdater;
+import de.jeff_media.PluginName.config.Messages;
 import de.jeff_media.PluginUpdateChecker.PluginUpdateChecker;
-import org.bstats.bukkit.Metrics;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class Main extends JavaPlugin {
 
     private static final String SPIGOT_RESOURCE_ID = "123456789";
-    private static final int BSTATS_ID = 9991;
+    public static final int BSTATS_ID = 9991;
     private static final String UPDATECHECKER_LINK_API = "https://api.spigotmc.org/legacy/update.php?resource="+SPIGOT_RESOURCE_ID;
     private static final String UPDATECHECKER_LINK_DOWNLOAD = "https://www.spigotmc.org/resources/"+SPIGOT_RESOURCE_ID;
     private static final String UPDATECHECKER_LINK_CHANGELOG = "https://www.spigotmc.org/resources/"+SPIGOT_RESOURCE_ID+"/updates";
     private static final String UPDATECHECKER_LINK_DONATE = "https://paypal.me/mfnalex";
 
     private PluginUpdateChecker updateChecker;
+    private static Main instance;
 
     public Messages messages;
 
+    public static Main getInstance() {
+        return instance;
+    }
+
     @Override
     public void onEnable() {
+        instance = this;
         reload();
-        registerMetrics();
-        getCommand("pluginname").setExecutor(new MainCommand(this));
+        getCommand("pluginname").setExecutor(new MainCommand());
     }
 
     public void reload() {
-        createConfig();
+        saveDefaultConfig();
         ConfigUpdater.updateConfig(this);
         reloadConfig();
         initUpdateChecker();
 
-        messages = new Messages(this);
-    }
-
-    private void createConfig() {
-        saveDefaultConfig();
-
-        getConfig().addDefault(Config.CHECK_FOR_UPDATES, "true");
-        getConfig().addDefault(Config.CHECK_FOR_UPDATES_INTERVAL, 4);
-    }
-
-    private void registerMetrics() {
-        Metrics metrics = new Metrics(this,BSTATS_ID);
-
-        metrics.addCustomChart(new Metrics.SimplePie("check_for_updates", () -> getConfig().getString(Config.CHECK_FOR_UPDATES)));
-        metrics.addCustomChart(new Metrics.SimplePie("check_for_updates_interval", () -> String.valueOf(getConfig().getInt(Config.CHECK_FOR_UPDATES_INTERVAL))));
+        messages = new Messages();
     }
 
     private void initUpdateChecker() {

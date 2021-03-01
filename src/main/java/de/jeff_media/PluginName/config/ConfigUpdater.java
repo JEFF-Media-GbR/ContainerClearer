@@ -1,4 +1,6 @@
-package de.jeff_media.PluginName;
+package de.jeff_media.PluginName.config;
+
+import de.jeff_media.PluginName.Main;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;

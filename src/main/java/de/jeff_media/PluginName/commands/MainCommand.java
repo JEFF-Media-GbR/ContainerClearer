@@ -10,8 +10,8 @@ public class MainCommand implements CommandExecutor {
 
     private final Main main;
 
-    public MainCommand(Main main) {
-        this.main=main;
+    public MainCommand() {
+        this.main=Main.getInstance();
     }
 
     @Override
@@ -24,7 +24,7 @@ public class MainCommand implements CommandExecutor {
         switch (args[0].toLowerCase()) {
 
             case "reload":
-                return ReloadCommand.run(main, commandSender, command, alias, args);
+                return ReloadCommand.run(commandSender, command, alias, args);
 
             default:
                 return false;
