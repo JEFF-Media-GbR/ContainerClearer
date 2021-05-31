@@ -27,14 +27,28 @@ public class Config {
         addAllMetrics();
     }
 
+    /**
+     * Adds a default value to a config node
+     * @param node Config node name
+     * @param defaultValue Default value
+     */
     private void addDefault(String node, Object defaultValue) {
         conf.addDefault(node, defaultValue);
     }
 
+    /**
+     * Registers a config node to bStats' Metrics. The value is automatically fetched from the config.
+     * @param node Config node name
+     */
     private void addMetric(String node) {
         metrics.addCustomChart(new Metrics.SimplePie(node.toLowerCase(Locale.ROOT).replace("-","_"),() ->String.valueOf(conf.get(node))));
     }
 
+    /**
+     * Using Reflection to register all config nodes to bStats.
+     * Performance doesn't matter, it's only called in onEnable() and getting some String fields
+     * really doesn't hurt anyone.
+     */
     private void addAllMetrics() {
         Class<? extends Config> clazz = this.getClass();
         Field[] fields = clazz.getDeclaredFields();

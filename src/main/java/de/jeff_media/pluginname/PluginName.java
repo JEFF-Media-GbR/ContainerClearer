@@ -33,7 +33,7 @@ public class PluginName extends JavaPlugin {
 
     public void reload() {
         saveDefaultConfig();
-        ConfigUpdater.updateConfig(this);
+        ConfigUpdater.updateConfig();
         new Config();
         reloadConfig();
 

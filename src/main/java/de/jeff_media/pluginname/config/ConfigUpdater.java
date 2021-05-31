@@ -11,16 +11,17 @@ import java.util.logging.Logger;
 
 public class ConfigUpdater {
 
+    private static PluginName main = PluginName.getInstance();
+
     private static final String[] NODES_NEEDING_DOUBLE_QUOTES = {"message-"};
     private static final String[] NODES_NEEDING_SINGLE_QUOTES = {"test-"};
     private static final String[] LINES_CONTAINING_STRING_LISTS = {"disabled-worlds:"};
     private static final String[] LINES_IGNORED = {"config-version:", "plugin-version:"};
     private static final String[] LINES_CONTAINING_NEWLINES = {}; // TODO: ADD THIS
 
-
     private static final boolean debug = false;
 
-    public static void updateConfig(PluginName main) {
+    public static void updateConfig() {
         Logger logger = main.getLogger();
 
         logger.info("===========================================");
@@ -29,13 +30,13 @@ public class ConfigUpdater {
         logger.info("newest version. You changes will be kept.");
         logger.info("===========================================");
 
-        backupCurrentConfig(main);
+        backupCurrentConfig();
         main.saveDefaultConfig();
 
         Set<String> oldConfigNodes = main.getConfig().getKeys(false);
         ArrayList<String> newConfig = new ArrayList<>();
 
-        for(String defaultLine : getNewConfigAsArrayList(main)) {
+        for(String defaultLine : getNewConfigAsArrayList()) {
 
             String updatedLine = defaultLine;
 
@@ -69,7 +70,7 @@ public class ConfigUpdater {
             }
         }
 
-        saveArrayListToConfig(main, newConfig);
+        saveArrayListToConfig(newConfig);
     }
 
     private static String getQuotes(String line) {
@@ -104,10 +105,10 @@ public class ConfigUpdater {
         return false;
     }
 
-    private static List<String> getNewConfigAsArrayList(PluginName main) {
+    private static List<String> getNewConfigAsArrayList() {
         List<String> lines;
         try {
-            lines = Files.readAllLines(Paths.get(getFilePath(main,"config.yml")), StandardCharsets.UTF_8);
+            lines = Files.readAllLines(Paths.get(getFilePath("config.yml")), StandardCharsets.UTF_8);
             return lines;
         } catch (IOException ioException) {
             ioException.printStackTrace();
@@ -115,9 +116,9 @@ public class ConfigUpdater {
         return null;
     }
 
-    private static void saveArrayListToConfig(PluginName main, List<String> lines) {
+    private static void saveArrayListToConfig(List<String> lines) {
         try {
-            FileWriter writer = new FileWriter(getFilePath(main,"config.yml"));
+            FileWriter writer = new FileWriter(getFilePath("config.yml"));
             for(String line : lines) {
                 writer.write(line + System.lineSeparator());
             }
@@ -127,7 +128,7 @@ public class ConfigUpdater {
         }
     }
 
-    private static String getFilePath(PluginName main, String fileName) {
+    private static String getFilePath(String fileName) {
         return main.getDataFolder() + File.separator + fileName;
     }
 
@@ -143,9 +144,9 @@ public class ConfigUpdater {
 
     }
 
-    private static void backupCurrentConfig(PluginName main) {
-        File oldFile = new File(getFilePath(main,"config.yml"));
-        File newFile = new File(getFilePath(main,"config-backup-"+main.getConfig().getString(Config.CONFIG_PLUGIN_VERSION)+".yml"));
+    private static void backupCurrentConfig() {
+        File oldFile = new File(getFilePath("config.yml"));
+        File newFile = new File(getFilePath("config-backup-"+main.getConfig().getString(Config.CONFIG_PLUGIN_VERSION)+".yml"));
         if(newFile.exists()) {
             //noinspection ResultOfMethodCallIgnored
             newFile.delete();
