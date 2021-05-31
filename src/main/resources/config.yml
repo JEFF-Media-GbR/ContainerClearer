@@ -16,7 +16,7 @@ test123: 3
 testasd: d
 
 ##########################
-#####   PluginName   #####
+#####   pluginname   #####
 ##########################
 
 # Permissions:
@@ -38,6 +38,13 @@ check-for-updates: true
 # When you set "check-for-updates" to true, you can define the amount
 # of hours between each update check.
 update-check-interval: 4
+
+##########################
+#####  Localization  #####
+##########################
+
+message-test1: "&aThis is a test message."
+message-test2: "&bThis is another test message."
 
 ##########################
 ##### End of Config  #####

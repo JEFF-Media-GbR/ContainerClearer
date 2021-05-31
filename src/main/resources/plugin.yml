@@ -1,4 +1,4 @@
-main: ${spigot.main}
+main: ${spigot.package}.${project.name}
 name: ${project.name}
 version: ${project.version}
 description: "${project.description}"

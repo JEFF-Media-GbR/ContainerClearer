@@ -1,6 +1,6 @@
-package de.jeff_media.PluginName.config;
+package de.jeff_media.pluginname.config;
 
-import de.jeff_media.PluginName.Main;
+import de.jeff_media.pluginname.PluginName;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -18,20 +18,10 @@ public class ConfigUpdater {
     private static final String[] LINES_CONTAINING_NEWLINES = {}; // TODO: ADD THIS
 
 
-    private static final boolean debug = true;
+    private static final boolean debug = false;
 
-    private static void debug(Logger logger, String message) {
-        logger.warning(message);
-    }
-
-    public static void updateConfig(Main main) {
+    public static void updateConfig(PluginName main) {
         Logger logger = main.getLogger();
-        debug(logger,"Newest config version  = "+getNewConfigVersion(main));
-        debug(logger,"Current config version = "+main.getConfig().getLong(Config.CONFIG_VERSION));
-        if(main.getConfig().getLong(Config.CONFIG_VERSION) >= getNewConfigVersion(main)) {
-            debug(logger,"The config currently used has an equal or newer version than the one shipped with this release.");
-            return;
-        }
 
         logger.info("===========================================");
         logger.info("You are using an outdated config file.");
@@ -49,11 +39,13 @@ public class ConfigUpdater {
 
             String updatedLine = defaultLine;
 
+            //noinspection StatementWithEmptyBody
             if(defaultLine.startsWith("-") || defaultLine.startsWith(" -") || defaultLine.startsWith("  -")) {
-                debug(logger, "Not including default String list entry: "+defaultLine);
+
             }
-            else if(lineContainsIgnoredNode(defaultLine)) {
-                debug(logger,"Not updating this line: " + defaultLine);
+            else //noinspection StatementWithEmptyBody
+                if(lineContainsIgnoredNode(defaultLine)) {
+
             }
             else if(lineIsStringList(defaultLine)) {
                 updatedLine = null;
@@ -112,8 +104,8 @@ public class ConfigUpdater {
         return false;
     }
 
-    private static List<String> getNewConfigAsArrayList(Main main) {
-        List<String> lines = Collections.emptyList();
+    private static List<String> getNewConfigAsArrayList(PluginName main) {
+        List<String> lines;
         try {
             lines = Files.readAllLines(Paths.get(getFilePath(main,"config.yml")), StandardCharsets.UTF_8);
             return lines;
@@ -123,7 +115,7 @@ public class ConfigUpdater {
         return null;
     }
 
-    private static void saveArrayListToConfig(Main main, List<String> lines) {
+    private static void saveArrayListToConfig(PluginName main, List<String> lines) {
         try {
             FileWriter writer = new FileWriter(getFilePath(main,"config.yml"));
             for(String line : lines) {
@@ -135,11 +127,11 @@ public class ConfigUpdater {
         }
     }
 
-    private static String getFilePath(Main main, String fileName) {
+    private static String getFilePath(PluginName main, String fileName) {
         return main.getDataFolder() + File.separator + fileName;
     }
 
-    private static long getNewConfigVersion(Main main) {
+    private static long getNewConfigVersion(PluginName main) {
         InputStream in = main.getClass().getResourceAsStream("/config-version.txt");
         BufferedReader reader = new BufferedReader(new InputStreamReader(in));
         try {
@@ -151,10 +143,15 @@ public class ConfigUpdater {
 
     }
 
-    private static void backupCurrentConfig(Main main) {
+    private static void backupCurrentConfig(PluginName main) {
         File oldFile = new File(getFilePath(main,"config.yml"));
         File newFile = new File(getFilePath(main,"config-backup-"+main.getConfig().getString(Config.CONFIG_PLUGIN_VERSION)+".yml"));
-        if(newFile.exists()) newFile.delete();
+        if(newFile.exists()) {
+            //noinspection ResultOfMethodCallIgnored
+            newFile.delete();
+        }
+
+        //noinspection ResultOfMethodCallIgnored
         oldFile.getAbsoluteFile().renameTo(newFile.getAbsoluteFile());
     }
 }
