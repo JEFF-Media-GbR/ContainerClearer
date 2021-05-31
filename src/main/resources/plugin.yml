@@ -4,7 +4,9 @@ version: ${project.version}
 description: "${project.description}"
 prefix: ${spigot.prefix}
 website: "${spigot.website}"
-author: mfnalex
+authors:
+  - mfnalex
+  - JEFF Media GbR
 database: false
 api-version: "1.13"
 load: POSTWORLD
