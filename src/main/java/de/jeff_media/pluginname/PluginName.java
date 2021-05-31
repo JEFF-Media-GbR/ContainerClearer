@@ -7,6 +7,8 @@ import de.jeff_media.pluginname.config.Messages;
 import de.jeff_media.updatechecker.UpdateChecker;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.Locale;
+
 public class PluginName extends JavaPlugin {
 
     private static final int SPIGOT_RESOURCE_ID = 1;
@@ -28,7 +30,7 @@ public class PluginName extends JavaPlugin {
     public void onEnable() {
         instance = this;
         reload();
-        getCommand("pluginname").setExecutor(new MainCommand());
+        getCommand(getName().toLowerCase(Locale.ROOT)).setExecutor(new MainCommand());
     }
 
     public void reload() {

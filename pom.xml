@@ -98,6 +98,20 @@
                             <failIfNoMatch>true</failIfNoMatch>
                         </configuration>
                     </execution>
+                    <execution>
+                        <id>regex-property</id>
+                        <goals>
+                            <goal>regex-property</goal>
+                        </goals>
+                        <configuration>
+                            <name>spigot.mainCommand</name>
+                            <value>${project.name}</value>
+                            <regex>(.*)</regex>
+                            <replacement>$1</replacement>
+                            <toLowerCase>true</toLowerCase>
+                            <failIfNoMatch>true</failIfNoMatch>
+                        </configuration>
+                    </execution>
                 </executions>
             </plugin>
         </plugins>
