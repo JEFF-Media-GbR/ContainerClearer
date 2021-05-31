@@ -7,9 +7,9 @@
     <name>PluginName</name>
     <version>1.0.0</version>
     <description>This plugin does awesome things.</description>
+    <artifactId>PluginName</artifactId>
 
     <groupId>de.jeff_media</groupId>
-    <artifactId>${project.name}</artifactId>
     <modelVersion>4.0.0</modelVersion>
 
     <properties>
@@ -85,7 +85,7 @@
                 <version>3.2.0</version>
                 <executions>
                     <execution>
-                        <id>regex-property</id>
+                        <id>lowercase-package</id>
                         <goals>
                             <goal>regex-property</goal>
                         </goals>
@@ -99,7 +99,7 @@
                         </configuration>
                     </execution>
                     <execution>
-                        <id>regex-property</id>
+                        <id>lowercase-mainCommand</id>
                         <goals>
                             <goal>regex-property</goal>
                         </goals>
