@@ -11,9 +11,15 @@ database: false
 api-version: "1.13"
 load: POSTWORLD
 
-softdepend: []
+softdepend: [ ]
 
 permissions:
+  clearcontainers.use:
+    description: "Allows to use the /clearcontainers command"
+    default: op
 
 commands:
-  ${spigot.mainCommand}:
+  clearcontainers:
+    usage: "/<command> <chunk|world|server> [all|barrel|furnace|hopper|...]"
+    description: "Clears all containers in the current chunk, world or server"
+    permission: "clearcontainers.use"
